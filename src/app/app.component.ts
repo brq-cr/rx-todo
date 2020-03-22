@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
 interface Todo {
@@ -16,7 +16,7 @@ interface Todo {
 export class AppComponent {
   todos$: BehaviorSubject<Todo[]> = new BehaviorSubject([]);
   currentTodoId$: BehaviorSubject<string> = new BehaviorSubject(null);
-  currentTodoForm = this.fb.group({
+  currentTodoForm: FormGroup = this.fb.group({
     description: ['', Validators.required],
   });
 
