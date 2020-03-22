@@ -21,7 +21,17 @@
     *ngFor="let todo of todos$ | async; index as i;"
   > 
     {{todo.description}}
-    <a href="#" (click)="onDeleteItem(todo)">Delete</a> | 
-    <a href="#" (click)="onEditItem(todo)">Edit</a>
+    <a 
+      href="#" 
+      (click)="onDeleteItem(todo)">
+      Delete
+    </a> 
+     | 
+    <a
+      href="#"
+      (click)="onEditItem(todo)"
+    >
+      Edit
+    </a>
   </li>
 </ul>
