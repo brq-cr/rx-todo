@@ -20,7 +20,7 @@ export class AppComponent {
     description: ['', Validators.required],
   });
 
-  get todosState() {
+  get todos() {
     return this.todos$.getValue();
   }
 
@@ -40,8 +40,8 @@ export class AppComponent {
   }
 
   public onDeleteItem(item: Todo) {
-    const newTodoState = this.todosState.filter(todo => todo.id !== item.id);
-    this.todos$.next(newTodoState);
+    const updatedTodos = this.todos.filter(todo => todo.id !== item.id);
+    this.todos$.next(updatedTodos);
   }
 
   public onEditItem(item: Todo) {
@@ -50,20 +50,21 @@ export class AppComponent {
   }
 
   private saveItem(item: Todo) {
-    item.id = (+new Date()).toString();
-    this.todos$.next([...this.todosState, ...[item]]);
+    const id = (+new Date()).toString();
+    const updatedTodos = [...this.todos, ...[Object.assign(item, {id})]];
+    this.todos$.next(updatedTodos);
     this.currentTodoId$.next(null);
     this.currentTodoForm.reset();
   }
 
   private editItem(item: Todo) {
-    const newTodoState = this.todosState.map(todo => {
+    const updatedTodos = this.todos.map(todo => {
       if (todo.id === item.id) {
         todo.description = item.description;
       }
       return todo;
     });
-    this.todos$.next(newTodoState);
+    this.todos$.next(updatedTodos);
     this.currentTodoId$.next(null);
     this.currentTodoForm.reset();
   }
