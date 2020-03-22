@@ -1,0 +1,27 @@
+
+
+<form 
+  [formGroup]="currentTodoForm" 
+  (ngSubmit)="onCurrentTodoFormSubmit()" 
+>
+  <label>
+    Name:
+    <input type="text" formControlName="description" >
+  </label>
+  <button 
+    [disabled]="!currentTodoForm.valid"
+    type="submit"
+  >
+    {{ !currentTodoId ? 'Agregar' : 'Guardar' }}
+  </button>
+</form>
+
+<ul>
+  <li 
+    *ngFor="let todo of todos$ | async; index as i;"
+  > 
+    {{todo.description}}
+    <a href="#" (click)="onDeleteItem(todo)">Delete</a> | 
+    <a href="#" (click)="onEditItem(todo)">Edit</a>
+  </li>
+</ul>
